@@ -2,6 +2,7 @@ package com.github.jacques917.map.generator.ui.controller;
 
 import com.github.jacques917.map.generator.events.GenerateSeed;
 import com.github.jacques917.map.generator.events.RenderAlgorithmEvent;
+import com.github.jacques917.map.generator.events.SolveFortune;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
@@ -37,8 +38,13 @@ public class UiController {
     }
 
     @FXML
-    public void handleStartButton() {
+    public void handleGenerateSeedButton() {
         eventBus.post(new GenerateSeed());
+    }
+
+    @FXML
+    public void handleStartFortune() {
+        eventBus.post(new SolveFortune());
     }
 
 }

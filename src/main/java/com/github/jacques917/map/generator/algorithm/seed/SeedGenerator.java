@@ -2,6 +2,7 @@ package com.github.jacques917.map.generator.algorithm.seed;
 
 import com.github.jacques917.map.generator.events.GenerateSeed;
 import com.github.jacques917.map.generator.events.RenderAlgorithmEvent;
+import com.github.jacques917.map.generator.events.SeedGenerated;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import io.vavr.collection.Stream;
@@ -36,9 +37,10 @@ public class SeedGenerator {
         List<Seed> seedList = generateSeed();
         updateView(seedList);
         log.info("Seed list: {}", seedList);
+        eventBus.post(new SeedGenerated(seedList));
     }
 
-    public List<Seed> generateSeed() {
+    private List<Seed> generateSeed() {
         List<Integer> xValues = new Random()
                 .ints(8, 10, 790)
                 .boxed()
@@ -51,7 +53,6 @@ public class SeedGenerator {
                 .zip(yValues)
                 .map(coordinates -> new Seed(coordinates._1, coordinates._2))
                 .asJava();
-
     }
 
     private void updateView(List<Seed> seedList) {

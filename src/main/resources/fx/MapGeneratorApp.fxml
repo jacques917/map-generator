@@ -5,16 +5,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121"
-            fx:controller="com.github.jacques917.map.generator.ui.controller.UiController">
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jacques917.map.generator.ui.controller.UiController">
     <children>
         <VBox alignment="CENTER">
             <children>
-                <ImageView fx:id="algorithmView" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true"
-                           preserveRatio="true"/>
+                <ImageView fx:id="algorithmView" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
                 <ButtonBar prefHeight="50.0" prefWidth="800.0">
                     <buttons>
-                        <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButton" text="Start"/>
+                        <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleGenerateSeedButton" text="Generate Seed" />
+                  <Button fx:id="startFortune" mnemonicParsing="false" onAction="#handleStartFortune" text="Fortune" />
                     </buttons>
                 </ButtonBar>
             </children>
