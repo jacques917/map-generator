@@ -1,15 +1,19 @@
 package com.github.jacques917.map.generator.ui.controller;
 
-import com.github.jacques917.map.generator.test.PingEvent;
-import com.github.jacques917.map.generator.test.PongEvent;
+import com.github.jacques917.map.generator.events.GenerateSeed;
+import com.github.jacques917.map.generator.events.RenderAlgorithmEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @Component
@@ -17,21 +21,24 @@ public class UiController {
 
     @Autowired
     private EventBus eventBus;
+    @FXML
+    private ImageView algorithmView;
 
     @PostConstruct
     public void init() {
         eventBus.register(this);
     }
 
-    @FXML
-    public void testButton() {
-        log.info("test button");
-        eventBus.post(new PingEvent());
+    @Subscribe
+    public void handleRenderAlgorithmEvent(RenderAlgorithmEvent event) {
+        Platform.runLater(() -> ofNullable(event)
+                .map(RenderAlgorithmEvent::getImage)
+                .ifPresent(algorithmView::setImage));
     }
 
-    @Subscribe
-    public void pongEventSub(PongEvent pongEvent) {
-        log.info("PONG");
+    @FXML
+    public void handleStartButton() {
+        eventBus.post(new GenerateSeed());
     }
 
 }

@@ -16,6 +16,10 @@ public class MapGeneratorApp extends Application {
     private ConfigurableApplicationContext springContext;
     private Parent root;
 
+    public static void main(String[] args) {
+        launch(MapGeneratorApp.class, args);
+    }
+
     @Override
     public void init() throws Exception {
         springContext = SpringApplication.run(MapGeneratorApp.class);
@@ -27,18 +31,15 @@ public class MapGeneratorApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Map generator");
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
     @Override
     public void stop() {
         springContext.stop();
-    }
-
-    public static void main(String[] args) {
-        launch(MapGeneratorApp.class, args);
     }
 
 }
